@@ -1,0 +1,38 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Install httpd
+    yum:
+        name: 
+        - httpd
+        - php
+        state: present
+
+  - name: Create httpd document root
+    file:
+      path: /var/www/html/myroot
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+      
+  - name: Update apache config
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^DocumentRoot "/var/www/html"'
+      replace: 'DocumentRoot "/var/www/html/myroot"'
+
+  - name: Copy php
+    template:
+      src: /home/thor/playbooks/templates/phpinfo.php.j2
+      dest: /var/www/html/myroot/phpinfo.php
+      owner: apache
+      group: apache
+      mode: '0644'
+
+  - name: Start the apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
