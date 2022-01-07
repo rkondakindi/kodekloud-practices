@@ -1,0 +1,21 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: replace text in stapp01
+    replace:
+      path: /opt/itadmin/blog.txt
+      regexp: 'xFusionCorp'
+      replace: 'Nautilus'
+    when: inventory_hostname == "stapp01"
+  - name: replace text in stapp02
+    replace:
+      path: /opt/itadmin/story.txt
+      regexp: 'Nautilus'
+      replace: 'KodeKloud'
+    when: inventory_hostname == "stapp02"
+  - name: replace text in stapp03
+    replace:
+      path: /opt/itadmin/media.txt
+      regexp: 'KodeKloud'
+      replace: 'xFusionCorp Industries'
+    when: inventory_hostname == "stapp03"
