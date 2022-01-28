@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: print-envars-greeting
+  name: print-envars-greeting
+spec:
+  containers:
+  - image: bash
+    name: print-env-container
+    env:
+    - name: GREETING
+      value: "Welcome to"
+    - name: COMPANY 
+      value: "xFusionCorp"
+    - name: GROUP 
+      value: "Group"
+    command: ["echo"]
+    args: ["$(GREETING) $(COMPANY) $(GROUP)"]
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
