@@ -3,6 +3,7 @@
 Perform the following tasks to deploy Jenkins
 
 1. Create a `namespace` **jenkins**
+
     **Solution:** you can use either of the command
 
         a. kubectl apply jenkins-ns.yaml
