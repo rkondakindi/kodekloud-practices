@@ -1,0 +1,44 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Create empty file
+    copy:
+      content: ""
+      dest: /opt/finance/blog.txt
+      owner: tony
+      group: tony
+    when: inventory_hostname == "stapp01"
+  - name: create symlink
+    file:
+      src: /opt/finance
+      dest: /var/www/html
+      state: link
+    when: inventory_hostname == "stapp01"
+  - name: Create empty file
+    copy:
+      content: ""
+      dest: /opt/finance/story.txt
+      owner: steve
+      group: steve
+    when: inventory_hostname == "stapp02"
+  - name: create symlink
+    file:
+      src: /opt/finance
+      dest: /var/www/html
+      state: link
+    when: inventory_hostname == "stapp02"
+  - name: Create empty file
+    copy:
+      content: ""
+      dest: /opt/finance/media.txt
+      owner: banner
+      group: banner
+    when: inventory_hostname == "stapp03"
+  - name: create symlink
+    file:
+      src: /opt/finance
+      dest: /var/www/html
+      state: link
+    when: inventory_hostname == "stapp03"
+
+
