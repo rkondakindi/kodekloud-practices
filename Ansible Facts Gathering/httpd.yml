@@ -1,0 +1,31 @@
+- hosts: all
+  become: True
+  tasks:
+  - name: "set ansible facts"
+    set_fact:
+      instance_ip: "{{ ansible_default_ipv4.address }}"
+
+  - name: Create a file
+    blockinfile:
+      path: /root/facts.txt
+      create: yes
+      block: |
+        Ansible managed node IP is {{ instance_ip }}
+
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: latest
+
+  - name: Copy facts.txt as index.html
+    copy:
+      src: /root/facts.txt
+      dest: /var/www/html/index.html
+      remote_src: yes
+
+  - name: Start httpd service
+    systemd:
+      name: httpd
+      state: started
+      enabled: yes
+
