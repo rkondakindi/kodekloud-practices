@@ -1,0 +1,9 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Create archive file
+    archive:
+      path: /usr/src/itadmin
+      dest: /opt/itadmin/apps.tar.gz
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
