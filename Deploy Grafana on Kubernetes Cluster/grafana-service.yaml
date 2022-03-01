@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: grafana-deployment-datacenter
+  name: grafana-service
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+    nodePort: 32000
+  selector:
+    app: grafana-deployment-datacenter
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: grafana-deployment-datacenter
+  name: grafana-deployment-datacenter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-deployment-datacenter
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: grafana-deployment-datacenter
+    spec:
+      containers:
+      - image: grafana/grafana-oss
+        name: grafana-oss
+        resources: {}
+status: {}
