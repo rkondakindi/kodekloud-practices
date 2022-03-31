@@ -1,0 +1,49 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: ensure file exists
+    copy:
+      content: ""
+      dest: /opt/finance/blog.txt
+      group: root
+      owner: root
+    when: inventory_hostname == "stapp01"
+  - name: ensure file exists
+    copy:
+      content: ""
+      dest: /opt/finance/story.txt
+      group: root
+      owner: root
+    when: inventory_hostname == "stapp02"
+  - name: ensure file exists
+    copy:
+      content: ""
+      dest: /opt/finance/media.txt
+      group: root
+      owner: root
+    when: inventory_hostname == "stapp03"
+  - name: Sets default ACL for tony on /opt/finance/blog.txt
+    acl:
+      path: /opt/finance/blog.txt
+      entity: tony
+      etype: group
+      permissions: r
+      state: present
+    when: inventory_hostname == "stapp01"
+  - name: Sets default ACL for steve on /opt/finance/story.txt
+    acl:
+      path: /opt/finance/story.txt
+      entity: steve
+      etype: user
+      permissions: rw
+      state: present
+    when: inventory_hostname == "stapp02"
+  - name: Sets default ACL for banner on /opt/finance/media.txt
+    acl:
+      path: /opt/finance/media.txt
+      entity: banner
+      etype: group
+      permissions: wr
+      state: present
+    when: inventory_hostname == "stapp03"
+
