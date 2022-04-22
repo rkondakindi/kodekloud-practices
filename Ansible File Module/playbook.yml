@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Create empty file
+    copy:
+      content: ""
+      dest: /tmp/app.txt
+      
+  - name: Change file ownership, group and permissions
+    file:
+      path: /tmp/app.txt
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_user }}"
+      mode: '0755'
